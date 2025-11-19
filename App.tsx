@@ -64,7 +64,7 @@ const App: React.FC = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold text-white tracking-tight leading-none">Informa Cashier Tax Calculator</h1>
-              <p className="text-xs text-blue-200 font-medium mt-1">Informa Cashier Helper</p>
+              <p className="text-xs text-blue-200 font-medium mt-1">Informa Cashier Helper - Pajak jelas, transaksi beres.</p>
             </div>
           </div>
           <div className="hidden md:block">
