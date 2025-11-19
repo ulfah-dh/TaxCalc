@@ -4,7 +4,7 @@ import { TaxResult, TransactionType } from '../types';
 import { formatIDR } from '../services/taxUtils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { COLORS } from '../constants';
-import { Copy, FileText, Building2, User, Landmark, Scale, BookOpen, AlertCircle } from 'lucide-react';
+import { Copy, FileText, Building2, User, Landmark, Scale, BookOpen, AlertCircle, Wallet, ArrowRight } from 'lucide-react';
 
 interface ResultsProps {
   result: TaxResult;
@@ -33,7 +33,7 @@ export const Results: React.FC<ResultsProps> = ({ result, transactionType, pphRa
     <div className="space-y-6">
       <div className="bg-white rounded-2xl shadow-xl border-0 overflow-hidden">
         
-        {/* Summary Header: Total Invoice - Changed to Red Gradient for contrast */}
+        {/* Summary Header: Total Invoice - Red Gradient */}
         <div className="bg-gradient-to-br from-[#e55541] to-[#c54130] p-8 text-white relative overflow-hidden shadow-inner">
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-3">
@@ -45,46 +45,64 @@ export const Results: React.FC<ResultsProps> = ({ result, transactionType, pphRa
               </span>
             </div>
             <h2 className="text-5xl font-bold tracking-tight mb-2 text-white drop-shadow-md">{formatIDR(result.totalInvoice)}</h2>
-            <p className="text-red-100 text-sm font-medium opacity-90">Total yang harus ditagihkan ke customer (Kuitansi).</p>
+            <p className="text-red-100 text-sm font-medium opacity-90">Total yang ditagihkan ke customer pada kuitansi/invoice</p>
           </div>
           {/* Decorative Circle */}
           <div className="absolute -right-6 -top-24 w-72 h-72 bg-white/10 rounded-full blur-3xl mix-blend-overlay"></div>
           <div className="absolute -left-10 -bottom-20 w-56 h-56 bg-black/10 rounded-full blur-2xl mix-blend-multiply"></div>
         </div>
 
-        {/* Scenario Cards: Cash Received */}
+        {/* Scenario Cards: Cash Received - Now Color Coded */}
         <div className="p-6 bg-slate-50 border-b border-slate-100">
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Estimasi Cash Flow (Uang Masuk)</h3>
+          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <Wallet className="w-4 h-4" />
+            Estimasi Cash Flow (Uang Masuk)
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             
-            {/* Scenario 1: Normal Retail */}
-            <div className={`p-5 rounded-xl border transition-all ${!isWithheld && !isTreasurer ? 'bg-white border-[#e55541] shadow-md shadow-red-100 ring-1 ring-[#e55541]' : 'bg-white border-slate-200 opacity-60 grayscale'}`}>
+            {/* Scenario 1: Retail (Green / Success) */}
+            <div className={`relative p-5 rounded-xl border-2 transition-all overflow-hidden group ${!isWithheld && !isTreasurer ? 'bg-emerald-50 border-emerald-500 shadow-lg shadow-emerald-100' : 'bg-white border-slate-100 opacity-50 grayscale hover:grayscale-0 hover:opacity-100'}`}>
+              {(!isWithheld && !isTreasurer) && <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">RECOMMENDED</div>}
               <div className="flex items-center gap-2 mb-3">
-                <User className={`w-4 h-4 ${!isWithheld && !isTreasurer ? 'text-[#e55541]' : 'text-slate-400'}`} />
-                <span className="text-xs font-bold text-slate-700 uppercase">Customer Retail</span>
+                <div className={`p-1.5 rounded-lg ${!isWithheld && !isTreasurer ? 'bg-emerald-200 text-emerald-800' : 'bg-slate-100 text-slate-400'}`}>
+                  <User className="w-4 h-4" />
+                </div>
+                <span className={`text-xs font-bold uppercase ${!isWithheld && !isTreasurer ? 'text-emerald-800' : 'text-slate-500'}`}>Retail / Personal</span>
               </div>
-              <p className="text-lg font-bold text-slate-900">{formatIDR(result.cashReceivedNormal)}</p>
-              <p className="text-[10px] text-slate-500 mt-1 font-medium">Terima Full 100%</p>
+              <p className={`text-lg font-bold ${!isWithheld && !isTreasurer ? 'text-emerald-900' : 'text-slate-800'}`}>{formatIDR(result.cashReceivedNormal)}</p>
+              <p className={`text-[10px] mt-1 font-medium flex items-center gap-1 ${!isWithheld && !isTreasurer ? 'text-emerald-600' : 'text-slate-400'}`}>
+                <ArrowRight className="w-3 h-3" /> Terima Full 100%
+              </p>
             </div>
 
-            {/* Scenario 2: Standard B2B */}
-            <div className={`p-5 rounded-xl border transition-all ${isWithheld && !isTreasurer ? 'bg-white border-[#e55541] shadow-md shadow-red-100 ring-1 ring-[#e55541]' : 'bg-white border-slate-200 opacity-60 grayscale'}`}>
+            {/* Scenario 2: B2B (Steel Blue / Corporate) */}
+            <div className={`relative p-5 rounded-xl border-2 transition-all overflow-hidden group ${isWithheld && !isTreasurer ? 'bg-[#648aa3]/10 border-[#648aa3] shadow-lg shadow-blue-100' : 'bg-white border-slate-100 opacity-50 grayscale hover:grayscale-0 hover:opacity-100'}`}>
+              {(isWithheld && !isTreasurer) && <div className="absolute top-0 right-0 bg-[#648aa3] text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">SELECTED</div>}
               <div className="flex items-center gap-2 mb-3">
-                <Building2 className={`w-4 h-4 ${isWithheld && !isTreasurer ? 'text-[#e55541]' : 'text-slate-400'}`} />
-                <span className="text-xs font-bold text-slate-700 uppercase">Corporate (B2B)</span>
+                <div className={`p-1.5 rounded-lg ${isWithheld && !isTreasurer ? 'bg-blue-100 text-[#648aa3]' : 'bg-slate-100 text-slate-400'}`}>
+                  <Building2 className="w-4 h-4" />
+                </div>
+                <span className={`text-xs font-bold uppercase ${isWithheld && !isTreasurer ? 'text-[#47657b]' : 'text-slate-500'}`}>Swasta/Corporate B2B</span>
               </div>
-              <p className="text-lg font-bold text-slate-900">{formatIDR(result.cashReceivedNetPPh)}</p>
-              <p className="text-[10px] text-slate-500 mt-1 font-medium">Invoice - {pphLabel}</p>
+              <p className={`text-lg font-bold ${isWithheld && !isTreasurer ? 'text-[#0f4372]' : 'text-slate-800'}`}>{formatIDR(result.cashReceivedNetPPh)}</p>
+              <p className={`text-[10px] mt-1 font-medium flex items-center gap-1 ${isWithheld && !isTreasurer ? 'text-[#648aa3]' : 'text-slate-400'}`}>
+                <ArrowRight className="w-3 h-3" /> Potong {pphLabel}
+              </p>
             </div>
 
-            {/* Scenario 3: WAPU/Treasurer */}
-            <div className={`p-5 rounded-xl border transition-all ${isTreasurer ? 'bg-white border-[#e55541] shadow-md shadow-red-100 ring-1 ring-[#e55541]' : 'bg-white border-slate-200 opacity-60 grayscale'}`}>
+            {/* Scenario 3: WAPU (Yellow/Orange / Warning) */}
+            <div className={`relative p-5 rounded-xl border-2 transition-all overflow-hidden group ${isTreasurer ? 'bg-[#f6b742]/10 border-[#f6b742] shadow-lg shadow-orange-100' : 'bg-white border-slate-100 opacity-50 grayscale hover:grayscale-0 hover:opacity-100'}`}>
+               {(isTreasurer) && <div className="absolute top-0 right-0 bg-[#f6b742] text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">SELECTED</div>}
                <div className="flex items-center gap-2 mb-3">
-                <Landmark className={`w-4 h-4 ${isTreasurer ? 'text-[#e55541]' : 'text-slate-400'}`} />
-                <span className="text-xs font-bold text-slate-700 uppercase">WAPU / BUMN</span>
+                <div className={`p-1.5 rounded-lg ${isTreasurer ? 'bg-orange-100 text-orange-600' : 'bg-slate-100 text-slate-400'}`}>
+                  <Landmark className="w-4 h-4" />
+                </div>
+                <span className={`text-xs font-bold uppercase ${isTreasurer ? 'text-orange-700' : 'text-slate-500'}`}>WAPU / BUMN</span>
               </div>
-              <p className="text-lg font-bold text-slate-900">{formatIDR(result.cashReceivedWapu)}</p>
-              <p className="text-[10px] text-slate-500 mt-1 font-medium">Invoice - PPh - PPN</p>
+              <p className={`text-lg font-bold ${isTreasurer ? 'text-orange-900' : 'text-slate-800'}`}>{formatIDR(result.cashReceivedWapu)}</p>
+              <p className={`text-[10px] mt-1 font-medium flex items-center gap-1 ${isTreasurer ? 'text-orange-600' : 'text-slate-400'}`}>
+                <ArrowRight className="w-3 h-3" /> Potong PPh & PPN
+              </p>
             </div>
 
           </div>
@@ -165,8 +183,8 @@ export const Results: React.FC<ResultsProps> = ({ result, transactionType, pphRa
                   dataKey="value"
                   stroke="none"
                 >
-                  <Cell key="dpp" fill="#0f4372" />
-                  <Cell key="ppn" fill="#e55541" />
+                  <Cell key="dpp" fill={COLORS.secondary} /> {/* Blue */}
+                  <Cell key="ppn" fill={COLORS.primary} />   {/* Red */}
                 </Pie>
                 <Tooltip 
                   formatter={(value: number) => formatIDR(value)}

@@ -68,8 +68,8 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="hidden md:block">
-            <span className="px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-blue-100 border border-white/10">
-              v1.3 Live
+            <span className="px-3 py-1 rounded-full bg-[#f6b742]/20 text-xs font-bold text-[#f6b742] border border-[#f6b742]/30">
+              v1.4.2 Color Update
             </span>
           </div>
         </div>
@@ -113,7 +113,8 @@ const App: React.FC = () => {
 
       <footer className="border-t border-white/10 py-8 mt-auto bg-[#0a2e4f]">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-white/80 text-sm font-medium">&copy; {new Date().getFullYear()} Ulfah D Hikmah - OMT HCI 17. Internal Use Only.</p>
+           <p className="text-white/60 text-sm mb-2">Internal Use Only</p>
+          <p className="text-white/60 text-xs font-medium">&copy; {new Date().getFullYear()} Ulfah D Hikmah - OMT HCI 17</p>
         </div>
       </footer>
     </div>

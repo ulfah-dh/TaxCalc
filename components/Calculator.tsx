@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CalculatorState, TransactionType } from '../types';
-import { User, Building2, ShoppingBag, Wrench, Info, Percent, Calculator as CalcIcon } from 'lucide-react';
+import { User, Building2, ShoppingBag, Wrench, Info, Percent, Calculator as CalcIcon, Check } from 'lucide-react';
 
 interface CalculatorProps {
   state: CalculatorState;
@@ -96,7 +96,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ state, onChange }) => {
                   : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
                 }`}
               >
-                11% (Current)
+                11%
               </button>
               <button
                 onClick={() => onChange({ ppnRate: 12 })}
@@ -106,7 +106,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ state, onChange }) => {
                   : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
                 }`}
               >
-                12% (Next)
+                12%
               </button>
            </div>
 
@@ -135,28 +135,25 @@ export const Calculator: React.FC<CalculatorProps> = ({ state, onChange }) => {
                 <span className="absolute -top-2 right-2 px-1.5 bg-[#f6b742] text-white text-[10px] font-bold rounded">Custom</span>
              )}
            </div>
-           <p className="text-[10px] text-slate-400">
-             Klik tombol untuk standar, atau ketik manual di kolom atas.
-           </p>
          </div>
       </div>
 
-      {/* WAPU / Treasurer Option */}
-      <div className="bg-[#f6b742]/10 p-4 rounded-xl border border-[#f6b742]/30">
+      {/* WAPU / Treasurer Option - Using Yellow/Orange Accent */}
+      <div className={`p-4 rounded-xl border transition-all ${state.isTreasurer ? 'bg-[#f6b742]/10 border-[#f6b742]' : 'bg-slate-50 border-slate-200'}`}>
         <label className="flex items-start gap-3 cursor-pointer">
           <div className="flex items-center h-5 mt-0.5">
             <input
               type="checkbox"
               checked={state.isTreasurer}
               onChange={(e) => onChange({ isTreasurer: e.target.checked })}
-              className="w-5 h-5 text-[#e55541] border-gray-300 rounded focus:ring-[#e55541]"
+              className="w-5 h-5 text-[#f6b742] border-gray-300 rounded focus:ring-[#f6b742]"
             />
           </div>
           <div>
-            <span className="text-sm font-bold text-slate-800">
+            <span className={`text-sm font-bold ${state.isTreasurer ? 'text-slate-900' : 'text-slate-600'}`}>
               Bendaharawan / BUMN (WAPU)
             </span>
-            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+            <p className="text-xs text-slate-500 mt-1 leading-relaxed">
               Customer menyetor pajak sendiri ke Kas Negara. <br/>
               {isGoods ? '(PPh 22 tarif 1.5%)' : '(PPh 23 tarif tetap, hanya metode bayar)'}
             </p>
@@ -164,7 +161,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ state, onChange }) => {
         </label>
       </div>
 
-      {/* Settings Grid */}
+      {/* Settings Grid - Using Green for NPWP */}
       <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
         <label className="flex items-center justify-between cursor-pointer mb-2">
           <span className="text-sm font-bold text-slate-700 flex items-center gap-2">
@@ -180,9 +177,20 @@ export const Calculator: React.FC<CalculatorProps> = ({ state, onChange }) => {
             <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#10b981]"></div>
           </div>
         </label>
-        <p className="text-xs text-slate-500">
-          {state.hasNpwp ? 'Memiliki NPWP (Tarif Normal)' : 'Tidak Ada NPWP (Tarif Pajak 100% Lebih Tinggi)'}
-        </p>
+        <div className="flex items-center gap-2">
+            {state.hasNpwp ? (
+                <span className="text-[10px] font-bold bg-[#10b981]/10 text-[#10b981] px-2 py-0.5 rounded-md flex items-center gap-1">
+                    <Check className="w-3 h-3" /> Verified
+                </span>
+            ) : (
+                <span className="text-[10px] font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-md">
+                    No NPWP
+                </span>
+            )}
+             <p className="text-xs text-slate-500">
+            {state.hasNpwp ? 'Tarif Normal' : 'Tarif Pajak +100%'}
+            </p>
+        </div>
       </div>
 
       {/* Advanced PPh Override */}
