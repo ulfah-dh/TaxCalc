@@ -1,0 +1,5 @@
+{
+  "name": "Kalkulator Pajak Indonesia (TaxCalc ID)",
+  "description": "Aplikasi perhitungan pajak otomatis (PPN, PPh 22, PPh 23) untuk transaksi barang dan jasa, dirancang untuk efisiensi kasir dan keuangan.",
+  "requestFramePermissions": []
+}
