@@ -69,7 +69,7 @@ const App: React.FC = () => {
           </div>
           <div className="hidden md:block">
             <span className="px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-blue-100 border border-white/10">
-              v1.2 Updated
+              v1.3 Live
             </span>
           </div>
         </div>

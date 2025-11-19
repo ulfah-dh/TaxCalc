@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CalculatorState, TransactionType } from '../types';
-import { User, Building2, ShoppingBag, Wrench, Info, Percent } from 'lucide-react';
+import { User, Building2, ShoppingBag, Wrench, Info, Percent, Calculator as CalcIcon } from 'lucide-react';
 
 interface CalculatorProps {
   state: CalculatorState;
@@ -79,32 +79,65 @@ export const Calculator: React.FC<CalculatorProps> = ({ state, onChange }) => {
         </p>
       </div>
 
-      {/* PPN Toggle */}
+      {/* PPN Toggle & Manual Input */}
       <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
          <label className="block text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
            <Percent className="w-4 h-4 text-[#648aa3]" /> Tarif PPN (VAT)
          </label>
-         <div className="grid grid-cols-2 p-1 bg-white rounded-lg border border-slate-200">
-            <button
-              onClick={() => onChange({ ppnRate: 11 })}
-              className={`py-2 text-sm font-semibold rounded-md transition-all ${
-                state.ppnRate === 11 
-                ? 'bg-[#0f4372] text-white shadow-sm' 
-                : 'text-slate-500 hover:bg-slate-50'
-              }`}
-            >
-              11%
-            </button>
-            <button
-              onClick={() => onChange({ ppnRate: 12 })}
-              className={`py-2 text-sm font-semibold rounded-md transition-all ${
-                state.ppnRate === 12 
-                ? 'bg-[#0f4372] text-white shadow-sm' 
-                : 'text-slate-500 hover:bg-slate-50'
-              }`}
-            >
-              12%
-            </button>
+         
+         <div className="space-y-3">
+           {/* Quick Buttons */}
+           <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => onChange({ ppnRate: 11 })}
+                className={`py-2 px-3 text-sm font-semibold rounded-lg border transition-all ${
+                  state.ppnRate === 11 
+                  ? 'bg-[#0f4372] text-white border-[#0f4372] shadow-sm' 
+                  : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
+                }`}
+              >
+                11% (Current)
+              </button>
+              <button
+                onClick={() => onChange({ ppnRate: 12 })}
+                className={`py-2 px-3 text-sm font-semibold rounded-lg border transition-all ${
+                  state.ppnRate === 12 
+                  ? 'bg-[#0f4372] text-white border-[#0f4372] shadow-sm' 
+                  : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
+                }`}
+              >
+                12% (Next)
+              </button>
+           </div>
+
+           {/* Manual Input */}
+           <div className="relative">
+             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+               <CalcIcon className="w-4 h-4 text-slate-400" />
+             </div>
+             <input
+               type="number"
+               step="0.1"
+               value={state.ppnRate}
+               onChange={(e) => {
+                 const val = e.target.value === '' ? 0 : parseFloat(e.target.value);
+                 onChange({ ppnRate: val });
+               }}
+               className={`block w-full pl-10 pr-12 py-2.5 rounded-lg border-2 text-sm font-bold text-slate-700 focus:ring-[#e55541] focus:border-[#e55541] transition-all ${
+                 state.ppnRate !== 11 && state.ppnRate !== 12 ? 'border-[#f6b742] bg-yellow-50' : 'border-slate-200 bg-white'
+               }`}
+             />
+             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+               <span className="text-slate-400 font-bold">%</span>
+             </div>
+             
+             {state.ppnRate !== 11 && state.ppnRate !== 12 && (
+                <span className="absolute -top-2 right-2 px-1.5 bg-[#f6b742] text-white text-[10px] font-bold rounded">Custom</span>
+             )}
+           </div>
+           <p className="text-[10px] text-slate-400">
+             Klik tombol untuk standar, atau ketik manual di kolom atas.
+           </p>
          </div>
       </div>
 
@@ -156,7 +189,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ state, onChange }) => {
       <div>
         <details className="group">
           <summary className="flex justify-between items-center font-medium cursor-pointer list-none text-sm text-[#648aa3] hover:text-[#0f4372] transition-colors py-2">
-            <span>Manual Override Tarif Pajak</span>
+            <span>Manual Override Tarif Pajak (PPh)</span>
             <span className="transition group-open:rotate-180">
               <svg fill="none" height="20" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
             </span>
