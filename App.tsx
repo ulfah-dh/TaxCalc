@@ -113,7 +113,7 @@ const App: React.FC = () => {
 
       <footer className="border-t border-white/10 py-8 mt-auto bg-[#0a2e4f]">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-blue-300/60 text-sm font-light">&copy; {new Date().getFullYear()} Ulfah D Hikmah - OMT HCI 17. Internal Use Only.</p>
+          <p className="text-white/80 text-sm font-medium">&copy; {new Date().getFullYear()} Ulfah D Hikmah - OMT HCI 17. Internal Use Only.</p>
         </div>
       </footer>
     </div>

@@ -33,22 +33,23 @@ export const Results: React.FC<ResultsProps> = ({ result, transactionType, pphRa
     <div className="space-y-6">
       <div className="bg-white rounded-2xl shadow-xl border-0 overflow-hidden">
         
-        {/* Summary Header: Total Invoice */}
-        <div className="bg-gradient-to-r from-[#0f4372] to-[#1a568a] p-8 text-white relative overflow-hidden">
+        {/* Summary Header: Total Invoice - Changed to Red Gradient for contrast */}
+        <div className="bg-gradient-to-br from-[#e55541] to-[#c54130] p-8 text-white relative overflow-hidden shadow-inner">
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-3">
-              <p className="text-blue-200 text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+              <p className="text-red-100 text-sm font-bold uppercase tracking-widest flex items-center gap-2">
                 <FileText className="w-4 h-4" /> Total Nilai Invoice
               </p>
-              <span className="bg-white/10 border border-white/20 backdrop-blur-sm text-xs font-bold px-3 py-1 rounded-full text-white">
+              <span className="bg-white/20 border border-white/30 backdrop-blur-md text-xs font-bold px-3 py-1 rounded-full text-white shadow-sm">
                 Include PPN {ppnRate}%
               </span>
             </div>
-            <h2 className="text-5xl font-bold tracking-tight mb-2 text-white drop-shadow-sm">{formatIDR(result.totalInvoice)}</h2>
-            <p className="text-blue-100 text-sm opacity-80">Total yang harus ditagihkan ke customer (Kuitansi).</p>
+            <h2 className="text-5xl font-bold tracking-tight mb-2 text-white drop-shadow-md">{formatIDR(result.totalInvoice)}</h2>
+            <p className="text-red-100 text-sm font-medium opacity-90">Total yang harus ditagihkan ke customer (Kuitansi).</p>
           </div>
           {/* Decorative Circle */}
-          <div className="absolute -right-10 -top-20 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+          <div className="absolute -right-6 -top-24 w-72 h-72 bg-white/10 rounded-full blur-3xl mix-blend-overlay"></div>
+          <div className="absolute -left-10 -bottom-20 w-56 h-56 bg-black/10 rounded-full blur-2xl mix-blend-multiply"></div>
         </div>
 
         {/* Scenario Cards: Cash Received */}
