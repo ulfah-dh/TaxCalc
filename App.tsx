@@ -54,35 +54,40 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-[#e55541] p-2 rounded-lg shadow-sm">
-              <CalcIcon className="w-6 h-6 text-white" />
+    <div className="min-h-screen bg-[#0f4372] text-white flex flex-col font-sans selection:bg-[#e55541] selection:text-white">
+      {/* Header - Now blends with blue background but has a subtle separator */}
+      <header className="sticky top-0 z-30 bg-[#0f4372] border-b border-white/10 shadow-lg shadow-black/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="bg-white p-2.5 rounded-xl shadow-md">
+              <CalcIcon className="w-6 h-6 text-[#e55541]" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">TaxCalc ID</h1>
-              <p className="text-xs text-slate-500 font-medium">Kalkulator Pajak Kasir</p>
+              <h1 className="text-xl font-bold text-white tracking-tight leading-none">Informa Cashier Tax Calculator</h1>
+              <p className="text-xs text-blue-200 font-medium mt-1">Informa Cashier Helper</p>
             </div>
+          </div>
+          <div className="hidden md:block">
+            <span className="px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-blue-100 border border-white/10">
+              v1.2 Updated
+            </span>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Inputs */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-              <div className="p-6 border-b border-slate-100 bg-slate-50/50">
-                <h2 className="text-lg font-semibold text-[#0f4372] flex items-center gap-2">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+              <div className="p-6 border-b border-slate-100 bg-slate-50">
+                <h2 className="text-lg font-bold text-[#0f4372] flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-[#e55541]" />
                   Input Transaksi
                 </h2>
               </div>
-              <div className="p-6">
+              <div className="p-6 text-slate-900">
                 <Calculator 
                   state={state} 
                   onChange={handleStateChange} 
@@ -106,9 +111,9 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} TaxCalc ID. Internal Use Only.</p>
+      <footer className="border-t border-white/10 py-8 mt-auto bg-[#0a2e4f]">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-blue-300/60 text-sm font-light">&copy; {new Date().getFullYear()} Ulfah D Hikmah - OMT HCI 17. Internal Use Only.</p>
         </div>
       </footer>
     </div>
